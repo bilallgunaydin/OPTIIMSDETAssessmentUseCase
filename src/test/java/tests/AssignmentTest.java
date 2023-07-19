@@ -1,9 +1,6 @@
 package tests;
 
-import PageObjectModel.HomePage;
-import PageObjectModel.LikesPage;
-import PageObjectModel.LoginPage;
-import PageObjectModel.ProductPage;
+import PageObjectModel.*;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import org.testng.annotations.BeforeClass;
@@ -18,6 +15,7 @@ public class AssignmentTest extends BaseTest {
     LoginPage loginPage;
     ProductPage productPage;
     LikesPage likesPage;
+    BasketPage basketPage;
     ExtentTest test;
 
     @BeforeClass
@@ -26,6 +24,7 @@ public class AssignmentTest extends BaseTest {
         loginPage = new LoginPage(driver);
         productPage = new ProductPage(driver);
         likesPage = new LikesPage(driver);
+        basketPage = new BasketPage(driver);
     }
 
     @Test(priority = 1)
@@ -145,5 +144,26 @@ public class AssignmentTest extends BaseTest {
         test = ExtentManager.createTest("Check The Basket PopUp Message");
         likesPage.checkPopUpLikeList();
         test.log(Status.INFO, "Ürünün sepete eklendiği Pop up mesajı ile kontrol edildi.");
+    }
+
+    @Test(priority = 17)
+    public void goToBasket() {
+        test = ExtentManager.createTest("Click The 'Go To The Basket' Button");
+        likesPage.goToBasket();
+        test.log(Status.INFO, "Sepete gidilmesi için butona basıldı.");
+    }
+
+    @Test(priority = 18)
+    public void deleteTheProduct() {
+        test = ExtentManager.createTest("Delete the product");
+        basketPage.deleteTheProduct();
+        test.log(Status.INFO, "Ürün sepetten kaldırıldı");
+    }
+
+    @Test(priority = 19)
+    public void checkTheEmptyBasket() {
+        test = ExtentManager.createTest("Check the Empty Basket");
+        basketPage.checkTheEmptyBasket();
+        test.log(Status.INFO, "Sepetin boş olduğu doğrulandı");
     }
 }
