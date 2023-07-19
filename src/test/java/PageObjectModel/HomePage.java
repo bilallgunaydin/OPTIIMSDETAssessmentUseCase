@@ -18,7 +18,7 @@ public class HomePage extends BasePage {
         action = new Actions(driver);
     }
 
-    private static Logger logger = Logger.getLogger(HomePage.class.getName());
+
 
     public void checkHomePage() {
         checkUrl("https://www.hepsiburada.com/");
@@ -31,10 +31,15 @@ public class HomePage extends BasePage {
         click(cookieElement);
     }
 
-    By productNameElement = By.xpath("//input[@aria-autocomplete='list']");
 
+    By clickSearchTextBox = By.xpath("(//div[@class='searchBoxOld-M1esqHPyWSuRUjMCALPK'])[1]");
+
+    public void setClickSearchTextBox() {
+        click(clickSearchTextBox);
+    }
+    By productNameElement = By.xpath("//input[@aria-autocomplete='list']");
     public void typeProductName(String productName) {
-        logger.info("Aranan Ürün: " + productName);
+
         sendKey(productNameElement, productName);
     }
 
@@ -42,7 +47,6 @@ public class HomePage extends BasePage {
 
     public void clickSearchButton() {
         click(searchButtonElement);
-        logger.info("Arama Yapıldı");
     }
 
     By loginHoverElement = By.xpath("//span[@title='Giriş Yap']");
@@ -55,10 +59,4 @@ public class HomePage extends BasePage {
         click(loginButtonElement);
     }
 
-    By userElement = By.xpath("//span[contains(text(),'Hepsiburada Test')]");
-
-    public void checkUser() {
-        checkElementWithText(userElement, "Hepsiburada Test");
-        logger.info("Yönlendirmeden sonra anasayfada kullanıcı giriş işleminin yapıldığı doğrulandı.");
-    }
 }

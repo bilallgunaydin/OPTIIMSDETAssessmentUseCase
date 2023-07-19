@@ -5,23 +5,13 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-
 public class ExtentManager {
     private static ExtentReports extent;
     private static ExtentTest test;
 
     public static synchronized ExtentReports getInstance() {
         if (extent == null) {
-            extent = createInstance("test-output/extent-report.html");
+            extent = createInstance("extent-report.html");
         }
         return extent;
     }
@@ -29,7 +19,7 @@ public class ExtentManager {
     private static ExtentReports createInstance(String fileName) {
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(fileName);
         htmlReporter.config().setDocumentTitle("Extent Report");
-        htmlReporter.config().setReportName("Test Results Report");
+        htmlReporter.config().setReportName("Test Case Results");
 
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
@@ -37,7 +27,7 @@ public class ExtentManager {
         return extent;
     }
 
-    public static synchronized ExtentTest createTestCase(String testName) {
+    public static synchronized ExtentTest createTest(String testName) {
         test = extent.createTest(testName);
         test.assignAuthor("Bilal Günaydın");
         return test;
@@ -55,4 +45,3 @@ public class ExtentManager {
         getTest().log(status, throwable);
     }
 }
-

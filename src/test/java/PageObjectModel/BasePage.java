@@ -1,4 +1,5 @@
 package PageObjectModel;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public abstract class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
@@ -203,11 +205,26 @@ public abstract class BasePage {
         boolean find = false;
         List<WebElement> elements = findElements(key);
         for (WebElement element : elements) {
-            if (element.getText().contains(text)) {
+            if (element.getText().toLowerCase().contains(text)) {
                 find = true;
                 break;
             }
         }
+        Assert.assertEquals(true, find);
+    }
+
+    /**
+     * @param key
+     * @param text
+     */
+    public void checkElementWithTexts(By key, String text) {
+        boolean find = false;
+        String keywords[] = text.toLowerCase().split(",");
+        WebElement element = findElement(key);
+        String regex = ".*" + String.join(".*", keywords) + ".*";
+        if (element.getText().toLowerCase().matches(regex))
+            find = true;
+
         Assert.assertEquals(true, find);
     }
 
@@ -272,6 +289,19 @@ public abstract class BasePage {
 
     }
 
+
+    public void scrollToTargetPage(String targetPageKeywords) {
+        while (!driver.getCurrentUrl().contains(targetPageKeywords)) {
+            ((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 200);");
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void scrollToUp() {
         ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1000)");
     }
@@ -289,6 +319,11 @@ public abstract class BasePage {
         if (file.exists()) result = true;
 
         return result;
+    }
+
+    public void refreshCurrentPage() throws InterruptedException {
+        driver.navigate().refresh();
+        Thread.sleep(3000);
     }
 
     /**

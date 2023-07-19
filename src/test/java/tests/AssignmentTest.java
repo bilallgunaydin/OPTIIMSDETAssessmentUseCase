@@ -2,9 +2,12 @@ package tests;
 
 import PageObjectModel.HomePage;
 import PageObjectModel.LoginPage;
+import PageObjectModel.ProductPage;
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.ExtentManager;
 
 import java.io.IOException;
 
@@ -12,26 +15,27 @@ public class AssignmentTest extends BaseTest {
 
     HomePage homePage;
     LoginPage loginPage;
+    ProductPage productPage;
+    ExtentTest test;
 
     @BeforeClass
     void createSomeInstances() {
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
-        // mainPage = new MainPage(driver);
-        //searchPage = new SearchPage(driver);
+        productPage = new ProductPage(driver);
 
     }
 
     @Test(priority = 0)
     public void checkHomePage() throws InterruptedException {
-        test = extent.createTest("CheckCurrentUrl");
+        test = ExtentManager.createTest("CheckCurrentUrl");
         homePage.checkHomePage();
         test.log(Status.INFO, "Açılan sayfanın hepsiburada.com olduğu doğrulandı.");
     }
 
     @Test(priority = 1)
     public void openHomePage() throws InterruptedException {
-        test = extent.createTest("Accept The Cookies");
+        test = ExtentManager.createTest("Accept The Cookies");
         homePage.acceptCookies();
         test.log(Status.INFO, "Çerezler Kabul Edildi");
     }
@@ -39,22 +43,59 @@ public class AssignmentTest extends BaseTest {
 
     @Test(priority = 2)
     public void clickLoginButton() {
-        test = extent.createTest("Click Login Button");
+        test = ExtentManager.createTest("Click Login Button");
         homePage.clickLoginButton();
         test.log(Status.INFO, "Login Ekranına Gidildi.");
     }
 
     @Test(priority = 3)
     public void login() throws InterruptedException, IOException {
-        test = extent.createTest("Login Done");
+        test = ExtentManager.createTest("Login Done");
         loginPage.login();
         test.log(Status.INFO, "Giriş Yapıldı.");
     }
+
     @Test(priority = 4)
     public void search_a_product() throws InterruptedException {
-        test = extent.createTest("Search 'samsung' ");
+        test = ExtentManager.createTest("Search 'samsung'");
+        homePage.setClickSearchTextBox();
         homePage.typeProductName("samsung");
         homePage.clickSearchButton();
-        test.log(Status.INFO,"ürün Araması Yapıldı.");
+        test.log(Status.INFO, "ürün Araması Yapıldı.");
+    }
+
+    @Test(priority = 5)
+    public void clickPhoneMenu() throws InterruptedException {
+        test = ExtentManager.createTest("Click Phone Menu");
+        productPage.clickPhoneMenu();
+        test.log(Status.INFO, "Telefon menüsüne tıklandı");
+    }
+
+    @Test(priority = 6)
+    public void clickMobilePhoneMenu() throws InterruptedException {
+        test = ExtentManager.createTest("Click Mobile Phone Menu");
+        productPage.clickMobilePhoneMenu();
+        test.log(Status.INFO, "Cep Telefonu menüsüne tıklandı");
+    }
+
+    @Test(priority = 7)
+    public void checkProductName() throws InterruptedException {
+        test = ExtentManager.createTest("Is the product name 'samsung'");
+        productPage.checkProductName();
+        test.log(Status.PASS, "Samsung ile ilgili sonuçların geldiği doğrulandı.");
+    }
+    @Test(priority = 8)
+    public void checkCurrentUrlIsSecondResultPage()
+    {
+        test = ExtentManager.createTest("Check the url for second result page");
+        productPage.checkCurrentUrlIsSecondResultPage();
+        test.log(Status.PASS, "2.sonuç sayfasına gelindiği doğrulandı.");
+    }
+
+    @Test(priority = 8)
+    public void clickFifthProduct() throws InterruptedException {
+        test = ExtentManager.createTest("Click fifth product");
+        productPage.clickFifthProduct();
+        test.log(Status.PASS, "5.ürün açıldı");
     }
 }
