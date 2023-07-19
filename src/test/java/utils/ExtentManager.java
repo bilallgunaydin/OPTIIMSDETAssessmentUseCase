@@ -29,7 +29,7 @@ public class ExtentManager {
 
     public static synchronized ExtentTest createTest(String testName) {
         test = extent.createTest(testName);
-        test.assignAuthor("Bilal Günaydın");
+        test.assignAuthor("Bilal   Günaydın");
         return test;
     }
 

@@ -39,7 +39,7 @@ public class BaseTest {
             driver = new ChromeDriver(chromeOptions);
             driver.get("https://www.hepsiburada.com/");
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
         }
     }
 
