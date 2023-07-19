@@ -1,6 +1,7 @@
 package tests;
 
 import PageObjectModel.HomePage;
+import PageObjectModel.LikesPage;
 import PageObjectModel.LoginPage;
 import PageObjectModel.ProductPage;
 import com.aventstack.extentreports.ExtentTest;
@@ -16,6 +17,7 @@ public class AssignmentTest extends BaseTest {
     HomePage homePage;
     LoginPage loginPage;
     ProductPage productPage;
+    LikesPage likesPage;
     ExtentTest test;
 
     @BeforeClass
@@ -23,7 +25,7 @@ public class AssignmentTest extends BaseTest {
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         productPage = new ProductPage(driver);
-
+        likesPage = new LikesPage(driver);
     }
 
     @Test(priority = 1)
@@ -110,17 +112,38 @@ public class AssignmentTest extends BaseTest {
     }
 
     @Test(priority = 12)
-    public void checkPopUp() {
+    public void checkPopUpLikeList() {
         test = ExtentManager.createTest("Check pop up message");
-        productPage.checkPopUp();
-        test.log(Status.INFO,"Pop up kontrol edildi.");
+        productPage.checkPopUpLikeList();
+        test.log(Status.INFO, "Ürünün beğeni listesine eklendiği Pop up mesajı ile kontrol edildi.");
+        LikesPage.getProductName = productPage.getProduct();
     }
 
     @Test(priority = 13)
-    public void clickLikeList()
-    {
-        test=ExtentManager.createTest("Click Like List");
+    public void clickLikeList() {
+        test = ExtentManager.createTest("Click Like List");
         productPage.clickLikeList();
-        test.log(Status.INFO,"Beğendiklerim butonuna basıldı.");
+        test.log(Status.INFO, "Beğendiklerim butonuna basıldı.");
+    }
+
+    @Test(priority = 14)
+    public void checkTheLikeList() {
+        test = ExtentManager.createTest("Check The Same Products");
+        likesPage.checkEqualProduct();
+        test.log(Status.INFO, "Ürün sayfasındaki beğenilen ürün ile beğeni sayfasında yer alan ürünün aynı olduğu doğrulandı");
+    }
+
+    @Test(priority = 15)
+    public void addProductToTheBasket() throws InterruptedException {
+        test = ExtentManager.createTest("Add the product");
+        likesPage.addProductToTheBasket();
+        test.log(Status.INFO, "Beğenilen ürünün üstüne gelinip sepete ekle butonuna basıldı.");
+    }
+
+    @Test(priority = 16)
+    public void checkPopUpForBasket() throws InterruptedException {
+        test = ExtentManager.createTest("Check The Basket PopUp Message");
+        likesPage.checkPopUpLikeList();
+        test.log(Status.INFO, "Ürünün sepete eklendiği Pop up mesajı ile kontrol edildi.");
     }
 }

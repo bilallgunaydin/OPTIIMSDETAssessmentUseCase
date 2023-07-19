@@ -71,15 +71,17 @@ public class ProductPage extends BasePage {
 
     By checkPopUpMessageElement = By.xpath("(//div[normalize-space()='Ürün listenize eklendi.'])");
 
-    public void checkPopUp() {
+    public void checkPopUpLikeList() {
 
         checkElementWithText(checkPopUpMessageElement, "ürün listenize eklendi.");
     }
 
     By getProductNameElement = By.id("product-name");
 
-    public void getProduct() {
+    static String productName;
 
+    public String getProduct() {
+        return productName = getText(getProductNameElement).toLowerCase();
     }
 
     By howerMyAccountElement = By.xpath("//span[contains(text(),'Hesabım')]");
