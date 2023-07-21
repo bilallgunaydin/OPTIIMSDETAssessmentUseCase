@@ -7,8 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.logging.Logger;
-
 public class HomePage extends BasePage {
     Actions action;
 
@@ -17,8 +15,6 @@ public class HomePage extends BasePage {
         PageFactory.initElements(driver, this);
         action = new Actions(driver);
     }
-
-
 
     public void checkHomePage() {
         checkUrl("https://www.hepsiburada.com/");
@@ -30,7 +26,6 @@ public class HomePage extends BasePage {
         Thread.sleep(2000);
         click(cookieElement);
     }
-
 
     By clickSearchTextBox = By.xpath("(//div[@class='searchBoxOld-M1esqHPyWSuRUjMCALPK'])[1]");
 
