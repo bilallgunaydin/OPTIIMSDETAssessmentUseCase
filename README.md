@@ -43,7 +43,7 @@ I made 1 test cases according to the following scenarios at www.hepsiburada.com
     -Item added to cart' popup will check
     -Go to My Cart page
     -This product added to the cart will be entered and the 'Remove' button will be pressed, it will be removed from my cart.
-    -Confirm that this item is no longer in the cart
+    -It will be confirmed that the product is not in the cart
         
   
 ## 🏃Run Locally
